@@ -20,7 +20,6 @@ import DashboardLayout from "../pages/DashboardLayout";
 import UserProfile from "../pages/UserProfile";
 import MyBookings from "../pages/MyBookings";
 import UpdateBooking from "../pages/UpdateBooking";
-import PaymentHistory from "../pages/PaymentHistory";
 
 // Admin
 import ManageServices from "../pages/ManageServices";
@@ -51,8 +50,22 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/services", element: <Services /> },
       { path: "/service/:id", element: <ServiceDetails /> },
-      { path: "/booking", element: <ProtectedRoute><BookingPage /></ProtectedRoute> },
-      { path: "/payment", element: <ProtectedRoute><PaymentPage /></ProtectedRoute> },
+      {
+        path: "/booking",
+        element: (
+          <ProtectedRoute>
+            <BookingPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <ProtectedRoute>
+            <PaymentPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/payment/success", element: <PaymentSuccess /> },
 
       { path: "/about", element: <About /> },
@@ -65,19 +78,26 @@ const router = createBrowserRouter([
       // User Dashboard
       {
         path: "/dashboard",
-        element: <ProtectedRoute><DashboardLayout /></ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        ),
         children: [
           { path: "profile", element: <UserProfile /> },
           { path: "bookings", element: <MyBookings /> },
           { path: "booking/update/:id", element: <UpdateBooking /> },
-          { path: "payments", element: <PaymentHistory /> },
         ],
       },
 
       // Admin Routes
       {
         path: "/admin",
-        element: <AdminRoute><DashboardLayout /></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <DashboardLayout />
+          </AdminRoute>
+        ),
         children: [
           { path: "services", element: <ManageServices /> },
           { path: "services/add", element: <AddService /> },
@@ -94,7 +114,11 @@ const router = createBrowserRouter([
       // Decorator Routes
       {
         path: "/decorator",
-        element: <DecoratorRoute><DashboardLayout /></DecoratorRoute>,
+        element: (
+          <DecoratorRoute>
+            <DashboardLayout />
+          </DecoratorRoute>
+        ),
         children: [
           { path: "projects", element: <MyProjects /> },
           { path: "today", element: <TodaySchedule /> },
