@@ -1,17 +1,27 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sun, Moon, Menu } from "lucide-react";
 
 const Header = () => {
   const { user, logoutUser } = useAuth();
-  const [theme, setTheme] = useState("light");
   const [open, setOpen] = useState(false);
 
+  // ✅ DaisyUI theme names
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "styledecorlight"
+  );
+
+  // ✅ Apply theme globally
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.querySelector("html").setAttribute("data-theme", newTheme);
+    setTheme((prev) =>
+      prev === "styledecorlight" ? "styledecorsdark" : "styledecorlight"
+    );
   };
 
   const navItems = (
@@ -26,25 +36,24 @@ const Header = () => {
   return (
     <header className="shadow-md bg-base-100 sticky top-0 z-50">
       <div className="navbar max-w-7xl mx-auto px-4">
-        {/* LEFT - LOGO */}
+        {/* LEFT */}
         <div className="flex-1">
           <Link to="/" className="text-2xl font-bold">
-            {/* 🔔 Place your logo inside src/assets and import it if needed */}
             EventMaster
           </Link>
         </div>
 
-        {/* NAV LINKS (Desktop) */}
+        {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center">{navItems}</div>
 
-        {/* RIGHT SECTION */}
+        {/* RIGHT */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
           <button onClick={toggleTheme} className="btn btn-ghost btn-circle">
-            {theme === "light" ? <Moon /> : <Sun />}
+            {theme === "styledecorlight" ? <Moon /> : <Sun />}
           </button>
 
-          {/* User Login Area */}
+          {/* Auth */}
           {user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost">
@@ -62,7 +71,7 @@ const Header = () => {
             <Link to="/login" className="btn btn-primary btn-sm">Login</Link>
           )}
 
-          {/* Mobile Menu */}
+          {/* Mobile */}
           <button
             className="btn btn-ghost lg:hidden"
             onClick={() => setOpen(!open)}

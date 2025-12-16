@@ -2,49 +2,50 @@
 module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
+
   theme: {
     extend: {
       colors: {
-        cream: "#f8f4ec",          // light creamy white
-        chocolate: "#4b2e2b",      // dark chocolate
-        brightChocolate: "#6f4e37", // medium chocolate for dark mode
-        greyChocolate: "#8d6e63",   // greyish chocolate
-      }
+        'style-primary': '#B87333',
+      },
     },
   },
+
   plugins: [
-    require('@tailwindcss/forms'),
-    require('daisyui'),
+    require("daisyui"),
   ],
 
   daisyui: {
     themes: [
       {
-        lighttheme: {
-          primary: "#6f4e37",
-          secondary: "#8d6e63",
-          accent: "#4b2e2b",
-          neutral: "#f8f4ec",
-          "base-100": "#ffffff",
-          "base-200": "#faf7f2",
-          "base-300": "#f2ebe4",
-          "base-content": "#000",
+        styledecorlight: {
+          primary: "#B87333",
+          secondary: "#D5C5A1",
+          accent: "#F2EAD3",
+          neutral: "#E6E2D3",
+          "base-100": "#FAF7F0",
+          info: "#A3A3A3",
+          success: "#4CAF50",
+          warning: "#F4A261",
+          error: "#E63946",
         },
       },
       {
-        darktheme: {
-          primary: "#f8f4ec",
-          secondary: "#d7ccc8",
-          accent: "#f8f4ec",
-          neutral: "#6f4e37",
-          "base-100": "#4b2e2b",
-          "base-200": "#3e2624",
-          "base-300": "#2e1a19",
-          "base-content": "#fff",
+        styledecorsdark: {
+          primary: "#8B4513",
+          secondary: "#D2B48C",
+          accent: "#A47551",
+          neutral: "#4B2E2B",
+          "base-100": "#2C1A1A",
+          info: "#CFCFCF",
+          success: "#7DD87D",
+          warning: "#FFB347",
+          error: "#FF6B6B",
         },
       },
     ],
+    darkTheme: "styledecorsdark",
   },
-}
+};
