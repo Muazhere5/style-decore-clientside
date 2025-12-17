@@ -3,24 +3,44 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const { signIn } = useAuth();
+  const { login } = useAuth(); // ✅ FIXED (was signIn)
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
 
-    await signIn(form.email.value, form.password.value);
-    navigate("/");
+    try {
+      await login(form.email.value, form.password.value); // ✅ FIXED
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <form className="card w-96 bg-base-200 p-6 space-y-4" onSubmit={handleLogin}>
+      <form
+        className="card w-96 bg-base-200 p-6 space-y-4"
+        onSubmit={handleLogin}
+      >
         <h2 className="text-2xl font-bold text-center">Login</h2>
 
-        <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
-        <input type="password" name="password" placeholder="Password" className="input input-bordered w-full" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="input input-bordered w-full"
+          required
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="input input-bordered w-full"
+          required
+        />
 
         <button className="btn btn-primary w-full">Login</button>
       </form>
